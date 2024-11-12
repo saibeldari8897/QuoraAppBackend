@@ -1,6 +1,7 @@
 package org.example.quora.controllers;
 
 
+import org.example.quora.dtos.UserDto;
 import org.example.quora.models.User;
 import org.example.quora.repositories.UserRepository;
 import org.example.quora.service.userService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 public class UserController {
@@ -20,20 +22,32 @@ public class UserController {
         this.userRepository = userRepository;
         this.userService = userService;
     }
-
-    @GetMapping("/")
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    @GetMapping("/{email}")
-    public ResponseEntity<Optional<User>> getUserByEmail(@PathVariable String email) {
-        return new ResponseEntity<>(userRepository.findByEmail(email), HttpStatus.OK);
-    }
-
     @PostMapping("/adduser")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        return new ResponseEntity<>(userRepository.save(user), HttpStatus.CREATED);
+    public ResponseEntity<User> addUser(@RequestBody UserDto userDto) {
+        return new  ResponseEntity<>(userService.createUser(userDto),HttpStatus.OK);
+    }
+    @GetMapping("/getUsers")
+    public ResponseEntity<List<User>> getUsers() {
+        return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
+    }
+    @GetMapping("/users/{uuid}")
+    public ResponseEntity<User> getUser(@PathVariable UUID uuid) {
+        Optional<User> user = userService.getUserById(uuid);
+        if(user.isPresent()) {
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @PutMapping("/users/{uuid}")
+    public ResponseEntity<User> updateUser(@PathVariable UUID uuid, @RequestBody UserDto userDto) {
+        Optional<User> user = userService.getUserById(uuid);
+        if(user.isPresent()) {
+            Optional<User> updatedUser = userService.updateUser(uuid,userDto);
+            if(updatedUser.isPresent()) {
+                return new ResponseEntity<>(updatedUser.get(), HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

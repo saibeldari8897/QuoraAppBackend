@@ -2,6 +2,9 @@ package org.example.quora.dtos;
 
 
 import lombok.*;
+import org.example.quora.models.User;
+
+import java.util.UUID;
 
 @Builder
 @Getter
@@ -9,6 +12,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuestionDto {
+
+    private UUID userId;
 
     private String title;
 

@@ -12,13 +12,7 @@ import java.util.UUID;
 
 @Service
 public interface QuestionService {
-    public Optional<Question> getQuestionById(int id);
-    public List<Question> getAllQuestions();
-    public List<Question> getQuestionsByAuthor(String author);
-    public Question createQuestion(QuestionDto questionDto, UUID userId);
-    public Question updateQuestion(Question question);
-    public void deleteQuestion(int id);
-    public void deleteQuestionByAuthor(String author);
-    public void deleteQuestionByQuestionId(int id);
+    public Question createQuestion(QuestionDto questionDto);
+    public Question updateQuestion(QuestionDto questionDto, UUID questionId);
 
 }
