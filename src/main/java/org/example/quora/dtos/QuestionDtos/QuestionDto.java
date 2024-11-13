@@ -1,8 +1,7 @@
-package org.example.quora.dtos;
+package org.example.quora.dtos.QuestionDtos;
 
 
 import lombok.*;
-import org.example.quora.models.User;
 
 import java.util.UUID;
 

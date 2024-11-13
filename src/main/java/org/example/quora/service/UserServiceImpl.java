@@ -1,12 +1,11 @@
 package org.example.quora.service;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.example.quora.dtos.UserDto;
+import org.example.quora.dtos.UserDtos.UserDto;
 import org.example.quora.models.User;
 import org.example.quora.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 

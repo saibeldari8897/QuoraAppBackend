@@ -1,6 +1,7 @@
 package org.example.quora.service;
 
-import org.example.quora.dtos.AnswerDto;
+import jakarta.persistence.EntityNotFoundException;
+import org.example.quora.dtos.AnswerDtos.AnswerDto;
 import org.example.quora.models.Answer;
 import org.example.quora.models.Question;
 import org.example.quora.models.User;
@@ -9,10 +10,13 @@ import org.example.quora.repositories.QuestionRepository;
 import org.example.quora.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class AnswerServiceImpl implements AnswerService {
@@ -28,44 +32,36 @@ public class AnswerServiceImpl implements AnswerService {
         this.userRepository = userRepository;
     }
 
+
     @Override
-    public Optional<Answer> getAnswer(long id) {
-        return Optional.empty();
+    public List<AnswerDto> getAnswersByQuestionId(UUID questionId) {
+        List<Answer> answers = answerRepository.findByQuestionId(questionId);
+
+        if (answers.isEmpty()) {
+            throw new EntityNotFoundException("No answers found for question ID " + questionId);
+        }
+
+        return answers.stream()
+                .map(answer -> new AnswerDto(
+                        answer.getUuid(),
+                        answer.getQuestion().getId(),
+                        answer.getUser().getId(),
+                        answer.getText(),
+                        LocalDateTime.ofInstant(answer.getCreatedAt().toInstant(), ZoneId.systemDefault())))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Answer> getAllAnswers() {
-        return answerRepository.findAll();
-    }
+    public Answer createAnswer(AnswerDto answerDto) {
+        User user = userRepository.findById(answerDto.getUserId()).get();
+        Question question = questionRepository.findById(answerDto.getQuestionId()).get();
 
-    @Override
-    public Answer createAnswer(AnswerDto answerDto, UUID questionId, UUID userId) {
-        Question idOfQuestion = questionRepository.findById(questionId).get();
-        User idOfUser = userRepository.findById(userId).get();
         Answer answer = new Answer();
         answer.setText(answerDto.getText());
         answer.setCreatedAt(new Date());
-        answer.setQuestion(idOfQuestion);
-        answer.setUser(idOfUser);
-        answerRepository.save(answer);
-        return answer;
-    }
-
-    @Override
-    public Answer updateAnswer( AnswerDto answerDto, UUID questionId) {
-        Answer answer = answerRepository.findById(questionId).get();
-        answer.setText(answerDto.getText());
-        answerRepository.save(answer);
-        return answer;
-    }
-
-    @Override
-    public void deleteAnswer(UUID answerId, UUID questionId, UUID userId) {
-
-    }
-
-    @Override
-    public void deleteAllAnswers() {
-
+        answer.setUser(user);
+        answer.setQuestion(question);
+        return answerRepository.save(answer);
     }
 }
+

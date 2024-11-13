@@ -1,7 +1,7 @@
 package org.example.quora.controllers;
 
 
-import org.example.quora.dtos.UserDto;
+import org.example.quora.dtos.UserDtos.UserDto;
 import org.example.quora.models.User;
 import org.example.quora.repositories.UserRepository;
 import org.example.quora.service.userService;
@@ -26,7 +26,7 @@ public class UserController {
     public ResponseEntity<User> addUser(@RequestBody UserDto userDto) {
         return new  ResponseEntity<>(userService.createUser(userDto),HttpStatus.OK);
     }
-    @GetMapping("/getUsers")
+    @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }

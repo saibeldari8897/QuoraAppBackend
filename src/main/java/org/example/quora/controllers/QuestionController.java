@@ -2,7 +2,7 @@ package org.example.quora.controllers;
 
 
 
-import org.example.quora.dtos.QuestionDto;
+import org.example.quora.dtos.QuestionDtos.QuestionDto;
 import org.example.quora.models.Question;
 import org.example.quora.repositories.QuestionRepository;
 import org.example.quora.service.QuestionService;

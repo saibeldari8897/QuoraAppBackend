@@ -2,7 +2,7 @@ package org.example.quora.service;
 
 
 
-import org.example.quora.dtos.UserDto;
+import org.example.quora.dtos.UserDtos.UserDto;
 import org.example.quora.models.User;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,10 @@
 package org.example.quora.controllers;
 
-import org.example.quora.dtos.AnswerDto;
+import org.example.quora.dtos.AnswerDtos.AnswerDto;
 import org.example.quora.models.Answer;
 import org.example.quora.repositories.AnswerRepository;
 import org.example.quora.service.AnswerService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,21 +22,19 @@ public class AnswerController {
         this.answerRepository = answerRepository;
     }
 
-    @GetMapping("/answers")
-    public ResponseEntity<List<Answer>> getAllAnswers() {
-        List<Answer> answers = answerService.getAllAnswers();
-        return ResponseEntity.ok(answers);
+    @PostMapping("/answer")
+    public ResponseEntity<Answer> createAnswer(@RequestBody AnswerDto answerDto) {
+        Answer answer = answerService.createAnswer(answerDto);
+        if (answerDto.getQuestionId() != null && answerDto.getUserId() != null) {
+            return new ResponseEntity<Answer>(answerRepository.save(answer),HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @PostMapping("/addanswer/{questionId}/{answerId}")
-    public ResponseEntity<Answer> createAnswer(@RequestBody AnswerDto answerDto, @PathVariable UUID questionId,@PathVariable UUID answerId) {
-        Answer answer= answerService.createAnswer(answerDto, questionId, answerId);
-        return ResponseEntity.ok(answer);
+    @GetMapping("/getanswerbyquestionid/{questionId}")
+    public List<AnswerDto> getAnswersByQuestionId(@PathVariable UUID questionId) {
+        return answerService.getAnswersByQuestionId(questionId);
     }
 
-    @PutMapping("/updateans/{answerId}")
-    public ResponseEntity<Answer> updateAnswer(@RequestBody AnswerDto answerDto, @PathVariable UUID answerId) {
-        Answer answer=answerService.updateAnswer(answerDto,answerId);
-        return ResponseEntity.ok(answer);
-    }
 }

@@ -1,10 +1,7 @@
-package org.example.quora.dtos;
+package org.example.quora.dtos.UserDtos;
 
 
-import jdk.jfr.Name;
 import lombok.*;
-
-import java.util.UUID;
 
 @Builder
 @NoArgsConstructor

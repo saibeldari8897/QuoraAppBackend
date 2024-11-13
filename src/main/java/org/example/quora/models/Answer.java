@@ -29,4 +29,7 @@ public class Answer {
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    List<Comments> comments;
+
 }
