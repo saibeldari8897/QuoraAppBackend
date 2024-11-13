@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,15 +37,27 @@ public class AnswerServiceImpl implements AnswerService {
         if (answers.isEmpty()) {
             throw new EntityNotFoundException("No answers found for question ID " + questionId);
         }
+        List<AnswerDto> answerDtos = new ArrayList<>();
+        for (Answer answer : answers) {
+            AnswerDto answerDto = new AnswerDto(
+                    answer.getUuid(),
+                    answer.getQuestion().getId(),
+                    answer.getUser().getId(),
+                    answer.getText(),
+                    answer.getCreatedAt()
+            );
+            answerDtos.add(answerDto);
+        }
 
-        return answers.stream()
-                .map(answer -> new AnswerDto(
-                        answer.getUuid(),
-                        answer.getQuestion().getId(),
-                        answer.getUser().getId(),
-                        answer.getText(),
-                        LocalDateTime.ofInstant(answer.getCreatedAt().toInstant(), ZoneId.systemDefault())))
-                .collect(Collectors.toList());
+//        return answers.stream()
+//                .map(answer -> new AnswerDto(
+//                        answer.getUuid(),
+//                        answer.getQuestion().getId(),
+//                        answer.getUser().getId(),
+//                        answer.getText(),
+//                        LocalDateTime.ofInstant(answer.getCreatedAt().toInstant(), ZoneId.systemDefault())))
+//                .collect(Collectors.toList());
+        return answerDtos;
     }
 
     @Override
