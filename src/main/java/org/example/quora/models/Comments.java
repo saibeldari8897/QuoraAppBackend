@@ -32,6 +32,4 @@ public class Comments {
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Answer answer;
 }

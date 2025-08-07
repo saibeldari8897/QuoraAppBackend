@@ -30,6 +30,11 @@ public class Answer {
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL)
-    List<Comments> comments;
+    @JoinTable(
+            name = "answer_comments",
+            joinColumns = @JoinColumn(name = "answer_uuid"),
+            inverseJoinColumns = @JoinColumn(name = "comments_id")
+    )
+    private List<Comments> comments;
 
 }
