@@ -7,7 +7,9 @@ import org.example.quora.repositories.QuestionRepository;
 import org.example.quora.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -55,6 +57,15 @@ public class QuestionServiceImpl implements QuestionService {
         }
         catch (Exception e){
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Question> getAllQuestionsByUser(UUID userId) {
+        List<Question> questions = questionRepository.findByUserId(userId);
+        if (questions != null) {
+            return questions;
         }
         return null;
     }

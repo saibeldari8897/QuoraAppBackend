@@ -40,4 +40,9 @@ public class QuestionController {
         Question question= questionService.updateQuestion(questionDto,questionId);
         return ResponseEntity.ok(question);
     }
+    @GetMapping("/getQuestions/{userId}")
+    public ResponseEntity<List<Question>> getAllQuestionsByUser(@PathVariable UUID userId) {
+        List<Question> questions = questionService.getAllQuestionsByUser(userId);
+        return ResponseEntity.ok(questions);
+    }
 }
