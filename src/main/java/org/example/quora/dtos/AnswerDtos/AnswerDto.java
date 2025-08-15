@@ -12,9 +12,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnswerDto {
-    private UUID answerId;
-    private UUID questionId;
-    private UUID userId;
+    private Long answerId;
+    private Long questionId;
+    private Long userId;
     private String text;
     private Date createdAt;
 }

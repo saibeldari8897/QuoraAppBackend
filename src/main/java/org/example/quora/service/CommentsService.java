@@ -13,7 +13,7 @@ import java.util.UUID;
 @Service
 public interface CommentsService {
 
-    List<Comments> getComments(@PathVariable UUID id);
+    List<Comments> getComments(@PathVariable Long id);
 
     Comments addComment(CommentDto request);
 }

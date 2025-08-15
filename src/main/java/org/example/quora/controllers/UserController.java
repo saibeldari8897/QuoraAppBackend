@@ -31,7 +31,7 @@ public class UserController {
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
     @GetMapping("/users/{uuid}")
-    public ResponseEntity<User> getUser(@PathVariable UUID uuid) {
+    public ResponseEntity<User> getUser(@PathVariable Long uuid) {
         Optional<User> user = userService.getUserById(uuid);
         if(user.isPresent()) {
             return new ResponseEntity<>(user.get(), HttpStatus.OK);
@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{uuid}")
-    public ResponseEntity<User> updateUser(@PathVariable UUID uuid, @RequestBody UserDto userDto) {
+    public ResponseEntity<User> updateUser(@PathVariable Long uuid, @RequestBody UserDto userDto) {
         Optional<User> user = userService.getUserById(uuid);
         if(user.isPresent()) {
             Optional<User> updatedUser = userService.updateUser(uuid,userDto);

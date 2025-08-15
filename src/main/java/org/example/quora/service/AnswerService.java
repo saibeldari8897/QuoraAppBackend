@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Service
 public interface AnswerService {
-    public List<AnswerDto> getAnswersByQuestionId(UUID questionId);
+    public List<AnswerDto> getAnswersByQuestionId(Long questionId);
 
     public Answer createAnswer(AnswerDto answerDto);
 }

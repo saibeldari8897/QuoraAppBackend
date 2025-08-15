@@ -33,7 +33,7 @@ public class AnswerController {
     }
 
     @GetMapping("/getanswerbyquestionid/{questionId}")
-    public List<AnswerDto> getAnswersByQuestionId(@PathVariable UUID questionId) {
+    public List<AnswerDto> getAnswersByQuestionId(@PathVariable Long questionId) {
         return answerService.getAnswersByQuestionId(questionId);
     }
 

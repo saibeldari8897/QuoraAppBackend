@@ -36,12 +36,12 @@ public class QuestionController {
     }
 
     @PutMapping("/updatequestion/{questionId}")
-    public ResponseEntity<Question> updateQuestion(@RequestBody QuestionDto questionDto,@PathVariable UUID questionId) {
+    public ResponseEntity<Question> updateQuestion(@RequestBody QuestionDto questionDto,@PathVariable Long questionId) {
         Question question= questionService.updateQuestion(questionDto,questionId);
         return ResponseEntity.ok(question);
     }
     @GetMapping("/getQuestions/{userId}")
-    public ResponseEntity<List<Question>> getAllQuestionsByUser(@PathVariable UUID userId) {
+    public ResponseEntity<List<Question>> getAllQuestionsByUser(@PathVariable Long userId) {
         List<Question> questions = questionService.getAllQuestionsByUser(userId);
         return ResponseEntity.ok(questions);
     }

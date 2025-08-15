@@ -24,7 +24,6 @@ public class UserServiceImpl implements userService{
     public User createUser(UserDto userDto) {
 
         User user = new User();
-        user.setId(UUID.randomUUID());
         user.setUserName(userDto.getUserName());
         user.setEmail(userDto.getEmail());
 
@@ -32,7 +31,7 @@ public class UserServiceImpl implements userService{
     }
 
     @Override
-    public Optional<User> getUserById(UUID id) {
+    public Optional<User> getUserById(Long id) {
 
         User user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 
@@ -40,7 +39,7 @@ public class UserServiceImpl implements userService{
     }
 
     @Override
-    public Optional<User> updateUser(UUID id, UserDto userDto) {
+    public Optional<User> updateUser(Long id, UserDto userDto) {
 
         User user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         user.setUserName(userDto.getUserName());
