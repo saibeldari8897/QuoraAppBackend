@@ -11,7 +11,7 @@ import java.util.UUID;
 @Service
 public interface QuestionService {
     public Question createQuestion(QuestionDto questionDto);
-    public Question updateQuestion(QuestionDto questionDto, UUID questionId);
+    public Question updateQuestion(QuestionDto questionDto, Long questionId);
 
-    List<Question> getAllQuestionsByUser(UUID userId);
+    List<Question> getAllQuestionsByUser(Long userId);
 }

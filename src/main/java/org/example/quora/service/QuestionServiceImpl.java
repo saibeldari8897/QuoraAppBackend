@@ -48,7 +48,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Question updateQuestion(QuestionDto questionDto,UUID questionId) {
+    public Question updateQuestion(QuestionDto questionDto,Long questionId) {
         try{
             Question question1 = questionRepository.findById(questionId).get();
            question1.setTitle(questionDto.getTitle());
@@ -62,7 +62,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<Question> getAllQuestionsByUser(UUID userId) {
+    public List<Question> getAllQuestionsByUser(Long userId) {
         List<Question> questions = questionRepository.findByUserId(userId);
         if (questions != null) {
             return questions;

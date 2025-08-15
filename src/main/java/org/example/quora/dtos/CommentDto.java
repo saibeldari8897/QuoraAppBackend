@@ -13,6 +13,6 @@ import java.util.UUID;
 public class CommentDto {
     private String text;
     private Long parentId;
-    private UUID userId;
-    private UUID answerId;
+    private Long userId;
+    private Long answerId;
 }

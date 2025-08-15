@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.UUID;
 
-public interface QuestionRepository extends JpaRepository<Question, UUID> {
-    List<Question> findByUserId(UUID userId);
+public interface QuestionRepository extends JpaRepository<Question, Long> {
+    List<Question> findByUserId(Long userId);
 }

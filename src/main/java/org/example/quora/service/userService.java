@@ -15,8 +15,8 @@ public interface userService  {
 
     public User createUser(UserDto userDto);
 
-    public Optional<User> getUserById(UUID id);
+    public Optional<User> getUserById(Long id);
 
-    public Optional<User> updateUser(UUID id, UserDto userDto);
+    public Optional<User> updateUser(Long id, UserDto userDto);
 
 }

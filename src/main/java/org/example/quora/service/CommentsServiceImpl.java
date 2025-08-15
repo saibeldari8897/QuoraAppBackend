@@ -31,7 +31,7 @@ public class CommentsServiceImpl implements CommentsService {
 
 
     @Override
-    public List<Comments> getComments(UUID id) {
+    public List<Comments> getComments(Long id) {
         List<Comments> comments = commentRepository.findAllById(id);
         return comments;
     }

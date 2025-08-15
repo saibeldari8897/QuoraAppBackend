@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class QuestionDto {
 
-    private UUID userId;
+    private Long userId;
 
     private String title;
 

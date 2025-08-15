@@ -21,7 +21,7 @@ public class CommentsController {
     private CommentsService commentsService;
 
     @GetMapping("/getComments{id}")
-    public ResponseEntity<List<Comments>> getComments(@PathVariable UUID id) {
+    public ResponseEntity<List<Comments>> getComments(@PathVariable Long id) {
         List<Comments> list =commentsService.getComments(id);
         return new ResponseEntity<>(list, HttpStatus.OK);
     };

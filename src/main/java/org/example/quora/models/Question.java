@@ -18,8 +18,8 @@ import java.util.UUID;
 
 public class Question {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String title;
 
@@ -35,5 +35,5 @@ public class Question {
 
 
     @OneToMany(cascade = CascadeType.ALL)
-    List<Answer> answers;
+    List<Answer> answer;
 }

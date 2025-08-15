@@ -31,7 +31,7 @@ public class AnswerServiceImpl implements AnswerService {
 
 
     @Override
-    public List<AnswerDto> getAnswersByQuestionId(UUID questionId) {
+    public List<AnswerDto> getAnswersByQuestionId(Long questionId) {
         List<Answer> answers = answerRepository.findByQuestionId(questionId);
 
         if (answers.isEmpty()) {
@@ -40,7 +40,7 @@ public class AnswerServiceImpl implements AnswerService {
         List<AnswerDto> answerDtos = new ArrayList<>();
         for (Answer answer : answers) {
             AnswerDto answerDto = new AnswerDto(
-                    answer.getUuid(),
+                    answer.getId(),
                     answer.getQuestion().getId(),
                     answer.getUser().getId(),
                     answer.getText(),
