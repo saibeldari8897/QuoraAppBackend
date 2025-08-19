@@ -20,5 +20,5 @@ public class User {
     private String userName;
 
     @Column(nullable = false, unique = true)
-    private String Email;
+    private String email;
 }

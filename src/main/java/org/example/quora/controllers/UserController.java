@@ -1,6 +1,8 @@
 package org.example.quora.controllers;
 
 
+import org.example.quora.ApiResponses.LoginApiResponse;
+import org.example.quora.ExceptionHandler.UserAlreadyExistsException;
 import org.example.quora.dtos.UserDtos.UserDto;
 import org.example.quora.models.User;
 import org.example.quora.repositories.UserRepository;
@@ -9,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -23,8 +26,13 @@ public class UserController {
         this.userService = userService;
     }
     @PostMapping("/adduser")
-    public ResponseEntity<User> addUser(@RequestBody UserDto userDto) {
-        return new  ResponseEntity<>(userService.createUser(userDto),HttpStatus.OK);
+    public ResponseEntity<LoginApiResponse> addUser(@RequestBody UserDto userDto){
+        String message = userService.createUser(userDto);
+        LoginApiResponse response = LoginApiResponse.builder().message(message)
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.CREATED.value())
+                .build();
+        return new  ResponseEntity<>(response,HttpStatus.CREATED);
     }
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {

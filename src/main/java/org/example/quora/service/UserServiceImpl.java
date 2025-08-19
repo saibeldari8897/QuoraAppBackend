@@ -1,6 +1,8 @@
 package org.example.quora.service;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import org.example.quora.ExceptionHandler.UserAlreadyExistsException;
 import org.example.quora.dtos.UserDtos.UserDto;
 import org.example.quora.models.User;
 import org.example.quora.repositories.UserRepository;
@@ -21,13 +23,17 @@ public class UserServiceImpl implements userService{
     }
 
     @Override
-    public User createUser(UserDto userDto) {
+    public String createUser(UserDto userDto) throws UserAlreadyExistsException {
+        if (userRepository.findByEmail(userDto.getEmail()) != null) {
+            throw new UserAlreadyExistsException("User with email " + userDto.getEmail() + " already exists");
+        }
+        User user = User.builder()
+                .userName(userDto.getUserName())
+                .email(userDto.getEmail())
+                .build();
+        userRepository.save(user);
 
-        User user = new User();
-        user.setUserName(userDto.getUserName());
-        user.setEmail(userDto.getEmail());
-
-        return userRepository.save(user);
+        return "User added successfully";
     }
 
     @Override
