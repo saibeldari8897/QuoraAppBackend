@@ -1,4 +1,4 @@
-package org.example.quora.service;
+package org.example.quora.ServiceImpl;
 
 
 import jakarta.transaction.Transactional;
@@ -9,13 +9,13 @@ import org.example.quora.models.User;
 import org.example.quora.repositories.AnswerRepository;
 import org.example.quora.repositories.CommentRepository;
 import org.example.quora.repositories.UserRepository;
+import org.example.quora.service.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class CommentsServiceImpl implements CommentsService {

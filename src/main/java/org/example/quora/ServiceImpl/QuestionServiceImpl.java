@@ -1,16 +1,15 @@
-package org.example.quora.service;
+package org.example.quora.ServiceImpl;
 
 import org.example.quora.dtos.QuestionDtos.QuestionDto;
 import org.example.quora.models.Question;
 import org.example.quora.models.User;
 import org.example.quora.repositories.QuestionRepository;
 import org.example.quora.repositories.UserRepository;
+import org.example.quora.service.QuestionService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 
 @Service
