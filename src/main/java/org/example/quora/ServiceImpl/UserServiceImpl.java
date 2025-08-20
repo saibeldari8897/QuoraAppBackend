@@ -1,19 +1,18 @@
-package org.example.quora.service;
+package org.example.quora.ServiceImpl;
 
-import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.example.quora.ExceptionHandler.UserAlreadyExistsException;
 import org.example.quora.dtos.UserDtos.UserDto;
 import org.example.quora.models.User;
 import org.example.quora.repositories.UserRepository;
+import org.example.quora.service.userService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 
 @Service
-public class UserServiceImpl implements userService{
+public class UserServiceImpl implements userService {
 
     private UserRepository userRepository;
 

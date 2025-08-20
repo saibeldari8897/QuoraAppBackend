@@ -1,4 +1,4 @@
-package org.example.quora.service;
+package org.example.quora.ServiceImpl;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.example.quora.dtos.AnswerDtos.AnswerDto;
@@ -8,12 +8,10 @@ import org.example.quora.models.User;
 import org.example.quora.repositories.AnswerRepository;
 import org.example.quora.repositories.QuestionRepository;
 import org.example.quora.repositories.UserRepository;
+import org.example.quora.service.AnswerService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class AnswerServiceImpl implements AnswerService {
