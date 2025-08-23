@@ -1,9 +1,7 @@
-package org.example.quora.dtos.QuestionDtos;
+package org.example.quora.dtos;
 
 
 import lombok.*;
-
-import java.util.UUID;
 
 @Builder
 @Getter

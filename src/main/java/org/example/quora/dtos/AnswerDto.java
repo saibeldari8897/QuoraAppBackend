@@ -1,10 +1,8 @@
-package org.example.quora.dtos.AnswerDtos;
+package org.example.quora.dtos;
 
 import lombok.*;
 
 import java.util.Date;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter

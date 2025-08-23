@@ -1,35 +1,24 @@
 package org.example.quora.models;
 
-
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class Comments {
+@AllArgsConstructor
+public class Comments extends BaseModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-
-    private Long parentId;
-
+    @Column(name = "comment_text", nullable = false, columnDefinition = "TEXT")
     private String text;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date CreatedAt;
-
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "answer_id", nullable = false)
+    private Answer answer;
 }

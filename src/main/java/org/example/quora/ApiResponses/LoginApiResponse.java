@@ -18,10 +18,5 @@ public class LoginApiResponse {
     private String message;
     private LocalDateTime timestamp;
     private int status;
-
-    public LoginApiResponse(String message, HttpStatus status) {
-        this.message = message;
-        this.timestamp = LocalDateTime.now();
-        this.status = status.value();
-    }
+    private String token;
 }

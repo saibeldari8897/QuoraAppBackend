@@ -2,14 +2,13 @@ package org.example.quora.controllers;
 
 
 
-import org.example.quora.dtos.QuestionDtos.QuestionDto;
+import org.example.quora.dtos.QuestionDto;
 import org.example.quora.models.Question;
 import org.example.quora.repositories.QuestionRepository;
 import org.example.quora.service.QuestionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 public class QuestionController {
