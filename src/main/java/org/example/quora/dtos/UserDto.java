@@ -1,4 +1,4 @@
-package org.example.quora.dtos.UserDtos;
+package org.example.quora.dtos;
 
 
 import lombok.*;

@@ -1,6 +1,6 @@
 package org.example.quora.controllers;
 
-import org.example.quora.dtos.AnswerDtos.AnswerDto;
+import org.example.quora.dtos.AnswerDto;
 import org.example.quora.models.Answer;
 import org.example.quora.repositories.AnswerRepository;
 import org.example.quora.service.AnswerService;
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 public class AnswerController {

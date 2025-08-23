@@ -3,7 +3,7 @@ package org.example.quora.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,28 +12,19 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Answer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Answer extends BaseModel {
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "question_id", nullable = false)
     private Question question;
 
+    @Column(name = "answer_text", nullable = false, columnDefinition = "TEXT")
     private String text;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "answer_comments",
-            joinColumns = @JoinColumn(name = "answer_uuid"),
-            inverseJoinColumns = @JoinColumn(name = "comments_id")
-    )
-    private List<Comments> comments;
-
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comments> comments = new ArrayList<>();
 }
