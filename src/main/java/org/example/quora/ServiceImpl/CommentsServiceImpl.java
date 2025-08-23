@@ -47,8 +47,6 @@ public class CommentsServiceImpl implements CommentsService {
 
         Comments comment = Comments.builder()
                 .text(request.getText())
-                .parentId(request.getParentId())
-                .CreatedAt(new Date())
                 .user(user)
                 .build();
 

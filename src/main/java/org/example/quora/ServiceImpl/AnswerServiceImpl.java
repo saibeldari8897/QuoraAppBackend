@@ -1,7 +1,7 @@
 package org.example.quora.ServiceImpl;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.example.quora.dtos.AnswerDtos.AnswerDto;
+import org.example.quora.dtos.AnswerDto;
 import org.example.quora.models.Answer;
 import org.example.quora.models.Question;
 import org.example.quora.models.User;
@@ -37,13 +37,11 @@ public class AnswerServiceImpl implements AnswerService {
         }
         List<AnswerDto> answerDtos = new ArrayList<>();
         for (Answer answer : answers) {
-            AnswerDto answerDto = new AnswerDto(
-                    answer.getId(),
-                    answer.getQuestion().getId(),
-                    answer.getUser().getId(),
-                    answer.getText(),
-                    answer.getCreatedAt()
-            );
+            AnswerDto answerDto = AnswerDto.builder()
+                    .questionId(questionId)
+                    .answerId(answer.getId())
+                    .text(answer.getText())
+                    .build();
             answerDtos.add(answerDto);
         }
 
@@ -63,11 +61,10 @@ public class AnswerServiceImpl implements AnswerService {
         User user = userRepository.findById(answerDto.getUserId()).get();
         Question question = questionRepository.findById(answerDto.getQuestionId()).get();
 
-        Answer answer = new Answer();
-        answer.setText(answerDto.getText());
-        answer.setCreatedAt(new Date());
-        answer.setUser(user);
-        answer.setQuestion(question);
+        Answer answer = Answer.builder()
+                .text(answerDto.getText())
+                .user(user)
+                .build();
         return answerRepository.save(answer);
     }
 }
