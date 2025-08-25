@@ -39,7 +39,6 @@ public class AnswerServiceImpl implements AnswerService {
         for (Answer answer : answers) {
             AnswerDto answerDto = AnswerDto.builder()
                     .questionId(questionId)
-                    .answerId(answer.getId())
                     .text(answer.getText())
                     .build();
             answerDtos.add(answerDto);
@@ -57,15 +56,17 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public Answer createAnswer(AnswerDto answerDto) {
-        User user = userRepository.findById(answerDto.getUserId()).get();
-        Question question = questionRepository.findById(answerDto.getQuestionId()).get();
+    public String createAnswer(AnswerDto answerDto) {
+        User user = userRepository.findById(answerDto.getUserId()).orElseThrow(() -> new EntityNotFoundException("User not found") );
+        Question question = questionRepository.findById(answerDto.getQuestionId()).orElseThrow(()-> new EntityNotFoundException("Question not found") );
 
         Answer answer = Answer.builder()
-                .text(answerDto.getText())
+                .question(question)
                 .user(user)
+                .text(answerDto.getText())
                 .build();
-        return answerRepository.save(answer);
+        answerRepository.save(answer);
+        return "Answer posted successfully";
     }
 }
 

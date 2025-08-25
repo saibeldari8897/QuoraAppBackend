@@ -12,7 +12,5 @@ public class QuestionDto {
 
     private Long userId;
 
-    private String title;
-
     private String body;
 }

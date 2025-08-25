@@ -10,9 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnswerDto {
-    private Long answerId;
     private Long questionId;
     private Long userId;
     private String text;
-    private Date createdAt;
 }
