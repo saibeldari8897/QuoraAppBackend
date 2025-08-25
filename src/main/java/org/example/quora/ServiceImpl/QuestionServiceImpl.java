@@ -26,22 +26,15 @@ public class QuestionServiceImpl implements QuestionService {
 
 
     @Override
-    public Question createQuestion(QuestionDto questionDto) {
+    public String createQuestion(QuestionDto questionDto) {
 
-        try {
-            Question question = new Question();
-            question.setBody(questionDto.getBody());
-             User user = userRepository.findById(questionDto.getUserId()).get();
-             if (user != null) {
-                 question.setUser(user);
-             } else {
-                 return null;
-             }
-            return questionRepository.save(question);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+        User user = userRepository.findById(questionDto.getUserId()).orElseThrow(()-> new RuntimeException("User not found"));
+        Question question = Question.builder()
+                .user(user)
+                .body(questionDto.getBody())
+                .build();
+        questionRepository.save(question);
+        return "Question created successfully";
     }
 
     @Override

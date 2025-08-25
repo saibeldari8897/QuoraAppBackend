@@ -11,5 +11,5 @@ import java.util.List;
 public interface AnswerService {
     public List<AnswerDto> getAnswersByQuestionId(Long questionId);
 
-    public Answer createAnswer(AnswerDto answerDto);
+    public String createAnswer(AnswerDto answerDto);
 }

@@ -2,36 +2,43 @@ package org.example.quora.controllers;
 
 
 
+import org.example.quora.ApiResponses.LoginApiResponse;
 import org.example.quora.dtos.QuestionDto;
 import org.example.quora.models.Question;
 import org.example.quora.repositories.QuestionRepository;
 import org.example.quora.service.QuestionService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/question")
 public class QuestionController {
 
+    private QuestionService questionService;
 
-    private final QuestionRepository questionRepository;
-    private final QuestionService questionService;
-
-    public QuestionController(final QuestionRepository questionRepository, final QuestionService questionService) {
-        this.questionRepository = questionRepository;
+    public QuestionController(QuestionService questionService) {
         this.questionService = questionService;
     }
 
-
-    @GetMapping("/questions")
-    public ResponseEntity<List<Question>> getAllQuestions() {
-        return ResponseEntity.ok(questionRepository.findAll());
-    }
+//
+//    @GetMapping("/questions")
+//    public ResponseEntity<List<Question>> getAllQuestions() {
+//        return ResponseEntity.ok(questionRepository.findAll());
+//    }
 
     @PostMapping("/addquestion")
-    public ResponseEntity<Question> createQuestion(@RequestBody QuestionDto questionDto) {
-        Question question = questionService.createQuestion(questionDto);
-        return ResponseEntity.ok(question);
+    public ResponseEntity<LoginApiResponse> createQuestion(@RequestBody QuestionDto questionDto) {
+        String message = questionService.createQuestion(questionDto);
+        LoginApiResponse loginApiResponse = LoginApiResponse.builder()
+                .message(message)
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.CREATED.value())
+                .build();
+        return ResponseEntity.ok(loginApiResponse);
     }
 
     @PutMapping("/updatequestion/{questionId}")
