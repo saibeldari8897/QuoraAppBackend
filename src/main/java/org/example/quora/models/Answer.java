@@ -1,5 +1,6 @@
 package org.example.quora.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,8 +15,9 @@ import java.util.List;
 @AllArgsConstructor
 public class Answer extends BaseModel {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", nullable = false)
+    @JsonBackReference
     private Question question;
 
     @Column(name = "answer_text", nullable = false, columnDefinition = "TEXT")

@@ -1,6 +1,8 @@
 package org.example.quora.ServiceImpl;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.el.stream.Stream;
+import org.example.quora.ExceptionHandler.NoAnswersFoundException;
 import org.example.quora.dtos.AnswerDto;
 import org.example.quora.models.Answer;
 import org.example.quora.models.Question;
@@ -12,6 +14,7 @@ import org.example.quora.service.AnswerService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AnswerServiceImpl implements AnswerService {
@@ -29,29 +32,17 @@ public class AnswerServiceImpl implements AnswerService {
 
 
     @Override
-    public List<AnswerDto> getAnswersByQuestionId(Long questionId) {
+    public List<AnswerDto> getAnswersByQuestionId(Long questionId) throws RuntimeException {
         List<Answer> answers = answerRepository.findByQuestionId(questionId);
 
         if (answers.isEmpty()) {
-            throw new EntityNotFoundException("No answers found for question ID " + questionId);
+            throw new NoAnswersFoundException("No answers found for question ID " + questionId);
         }
-        List<AnswerDto> answerDtos = new ArrayList<>();
-        for (Answer answer : answers) {
-            AnswerDto answerDto = AnswerDto.builder()
-                    .questionId(questionId)
-                    .text(answer.getText())
-                    .build();
-            answerDtos.add(answerDto);
-        }
-
-//        return answers.stream()
-//                .map(answer -> new AnswerDto(
-//                        answer.getUuid(),
-//                        answer.getQuestion().getId(),
-//                        answer.getUser().getId(),
-//                        answer.getText(),
-//                        LocalDateTime.ofInstant(answer.getCreatedAt().toInstant(), ZoneId.systemDefault())))
-//                .collect(Collectors.toList());
+        List<AnswerDto> answerDtos = answers.stream().map( answer-> AnswerDto.builder()
+                .questionId(answer.getQuestion().getId())
+                .text(answer.getText())
+                .userId(answer.getUser().getId())
+                .build()).collect(Collectors.toList());
         return answerDtos;
     }
 

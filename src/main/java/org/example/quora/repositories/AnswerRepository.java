@@ -10,6 +10,6 @@ import java.util.UUID;
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
-    @Query("SELECT a FROM Answer a WHERE a.question.id = :questionId")
+    @Query("SELECT a FROM Answer a JOIN FETCH a.user WHERE a.question.id = :questionId")
     List<Answer> findByQuestionId(Long questionId);
 }
