@@ -7,5 +7,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
+
+
+
     List<Question> findByUserId(Long userId);
 }
