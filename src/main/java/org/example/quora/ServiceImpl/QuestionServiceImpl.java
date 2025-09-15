@@ -7,16 +7,15 @@ import org.example.quora.repositories.QuestionRepository;
 import org.example.quora.repositories.UserRepository;
 import org.example.quora.service.QuestionService;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
-    private QuestionRepository questionRepository;
-    private UserRepository userRepository;
+    private final QuestionRepository questionRepository;
+    private final UserRepository userRepository;
     public QuestionServiceImpl(QuestionRepository questionRepository, UserRepository userRepository) {
         this.questionRepository = questionRepository;
         this.userRepository = userRepository;
@@ -38,16 +37,16 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Question updateQuestion(QuestionDto questionDto,Long questionId) {
-        try{
-            Question question1 = questionRepository.findById(questionId).get();
-           question1.setBody(questionDto.getBody());
-           return questionRepository.save(question1);
+    public String updateQuestion(QuestionDto questionDto,Long questionId) {
+        Optional<Question> question = questionRepository.findById(questionId);
+        if(question.isPresent()){
+            Question question1 = question.get();
+            question1.setBody(questionDto.getBody());
+            questionRepository.save(question1);
+        }else{
+            throw new RuntimeException("Question not found");
         }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+        return "Question updated successfully";
     }
 
     @Override
