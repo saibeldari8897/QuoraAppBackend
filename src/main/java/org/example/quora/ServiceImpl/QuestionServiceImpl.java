@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -38,16 +39,16 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Question updateQuestion(QuestionDto questionDto,Long questionId) {
-        try{
-            Question question1 = questionRepository.findById(questionId).get();
-           question1.setBody(questionDto.getBody());
-           return questionRepository.save(question1);
+    public String updateQuestion(QuestionDto questionDto,Long questionId) {
+        Optional<Question> question = questionRepository.findById(questionId);
+        if(question.isPresent()){
+            Question question1 = question.get();
+            question1.setBody(questionDto.getBody());
+            questionRepository.save(question1);
+        }else{
+            throw new RuntimeException("Question not found");
         }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+        return "Question updated successfully";
     }
 
     @Override

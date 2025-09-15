@@ -42,9 +42,9 @@ public class QuestionController {
     }
 
     @PutMapping("/updatequestion/{questionId}")
-    public ResponseEntity<Question> updateQuestion(@RequestBody QuestionDto questionDto,@PathVariable Long questionId) {
-        Question question= questionService.updateQuestion(questionDto,questionId);
-        return ResponseEntity.ok(question);
+    public ResponseEntity<String> updateQuestion(@RequestBody QuestionDto questionDto,@PathVariable Long questionId) {
+        String questionRes= questionService.updateQuestion(questionDto,questionId);
+        return ResponseEntity.ok(questionRes);
     }
     @GetMapping("/getQuestions/{userId}")
     public ResponseEntity<List<Question>> getAllQuestionsByUser(@PathVariable Long userId) {

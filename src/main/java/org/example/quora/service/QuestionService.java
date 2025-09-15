@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface QuestionService {
     public String createQuestion(QuestionDto questionDto);
-    public Question updateQuestion(QuestionDto questionDto, Long questionId);
+    public String updateQuestion(QuestionDto questionDto, Long questionId);
 
     List<Question> getAllQuestionsByUser(Long userId);
 }
