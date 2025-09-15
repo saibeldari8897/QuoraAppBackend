@@ -7,8 +7,6 @@ import org.example.quora.repositories.QuestionRepository;
 import org.example.quora.repositories.UserRepository;
 import org.example.quora.service.QuestionService;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +14,8 @@ import java.util.Optional;
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
-    private QuestionRepository questionRepository;
-    private UserRepository userRepository;
+    private final QuestionRepository questionRepository;
+    private final UserRepository userRepository;
     public QuestionServiceImpl(QuestionRepository questionRepository, UserRepository userRepository) {
         this.questionRepository = questionRepository;
         this.userRepository = userRepository;
